@@ -60,12 +60,23 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $this->validate($request, [
             'name' => 'required|unique:articles,name,' . $article->id,
-            'body' => 'required|min:100',
+            'body' => 'required|min:10',
         ]);
         $article->fill($request->all());
         $article->save();
         \Session::flash('flash', 'article successful updated');
         return redirect()
             ->route('articles.index');
+    }
+
+    public function destroy($id)
+    {
+        // DELETE идемпотентный метод, поэтому результат операции всегда один и тот же
+        $article = Article::find($id);
+        if ($article) {
+            $article->delete();
+        }
+        \Session::flash('flash', "article {$article->name} deleted");
+        return redirect()->route('articles.index');
     }
 }
