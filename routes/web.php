@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/about', 'PageController@about')
     ->name('about');
-
+/*
 Route::get('/articles', 'ArticleController@index')
     ->name('articles.index');
 
@@ -38,3 +38,5 @@ Route::patch('/articles/{id}', 'ArticleController@update')
 
 Route::delete('/articles/{id}', 'ArticleController@destroy')
     ->name('articles.destroy');
+*/
+Route::resource('/articles', 'ArticleController');
